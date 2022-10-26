@@ -7,7 +7,7 @@ spec:
     app: uber-ui
   ports:
   - protocol: "TCP"
-    port: 6000
+    port: 80
     targetPort: 5000
   type: LoadBalancer
 
@@ -30,4 +30,4 @@ spec:
       - name: uber-ui
         image: gcr.io/gcp-test-366209/python:tagversion
         ports:
-        - containerPort: 5000
+        - containerPort: 80
