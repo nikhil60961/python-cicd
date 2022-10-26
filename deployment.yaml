@@ -28,6 +28,6 @@ spec:
     spec:
       containers:
       - name: uber-ui
-        image: gcr.io/gcp-test-366209/python:latest
+        image: gcr.io/gcp-test-366209/python:tagversion
         ports:
         - containerPort: 5000
