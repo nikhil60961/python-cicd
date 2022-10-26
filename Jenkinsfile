@@ -1,5 +1,12 @@
 pipeline {
     agent any
+    	environment {
+		
+		            PROJECT_ID = 'gcp-test-366209'
+                CLUSTER_NAME = 'automation'
+                LOCATION = 'us-east1'
+                CREDENTIALS_ID = 'gcp-test'		
+	}
 
     stages {
         stage('git checkout') {
@@ -27,7 +34,12 @@ pipeline {
                }
             }
         }
-                
+        stage('Deployment to GKE') {
+            steps{
+                sh "sed -i 's/gcp-test-366209/python:${env.BUILD_ID}/g' deployment.yaml"
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+            }
+        }
             }
         
 }
